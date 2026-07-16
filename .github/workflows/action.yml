@@ -19,7 +19,7 @@ jobs:
   Job1:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # Steps represent a sequence of tasks that will be executed as part of job 1
     steps:
       - name: First Command
         run: echo "Hello!"
@@ -42,7 +42,7 @@ jobs:
         - name: checkout to repo
           uses: actions/checkout@v4
         
-        # Runs a set of commands using the runners shell and cat command
+        # Printing all the txt files using the cat command 
         - name: print 1.txt
           run: cat 1.txt
   
@@ -61,18 +61,21 @@ jobs:
   Job3:
       # The type of runner that the job will run on
       runs-on: ubuntu-latest
-      
+      # defining the first name into the  job environment (just job 3 can be use this env variable)
       env:
           FIRST_NAME: Niv
       steps:
+           
            - name: print first name using env
              run : echo "$FIRST_NAME"
-             
+           # defining a last name variable just in the local variable as usual in linux and echo it.
            - name: print last name using local variables
              run : | 
                    LAST_NAME=Levy
                    echo "$LAST_NAME"
+           #defining a secret phone number into the exam repo in the repo settings 
            - name: printing phone number 
+           #pulling out the secret variable then echo it 
              env:
                PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
              run: echo "$PHONE_NUMBER"
