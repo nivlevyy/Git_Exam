@@ -1,0 +1,89 @@
+# This is a basic workflow to help you get started with Actions
+
+name: git_exam_workflow
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  Job1:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: First Command
+        run: echo "Hello!"
+      #printing the ubuntu version from /etc/os-release by uploading the file data and variables to the current shell and the printing it 
+      - name: Second Command
+        run: |
+            source /etc/os-release 
+            echo $PRETTY_NAME
+      
+      #github will create a global variable GITHUB_SHA that will hold the hash code of the commit then i printed it 
+      - name: Third Command
+        run: echo "commit SHA- $GITHUB_SHA"
+  Job2:
+     # The type of runner that the job will run on
+     runs-on: ubuntu-latest
+
+     # Steps represent a sequence of tasks that will be executed as part of the job
+     steps:
+        # Checks-out repository under $GITHUB_WORKSPACE, so the job can access the files in it
+        - name: checkout to repo
+          uses: actions/checkout@v4
+        
+        # Runs a set of commands using the runners shell and cat command
+        - name: print 1.txt
+          run: cat 1.txt
+  
+        - name: print 2.txt
+          run: cat 2.txt
+          
+        - name: print 3.txt
+          run: cat 3.txt
+
+        - name: print 4.txt
+          run: cat 4.txt
+          
+        - name: running the script
+          run: bash test.sh
+        
+  Job3:
+      # The type of runner that the job will run on
+      runs-on: ubuntu-latest
+      
+      env:
+          FIRST_NAME: Niv
+      steps:
+           - name: print first name using env
+             run : echo "$FIRST_NAME"
+             
+           - name: print last name using local variables
+             run : | 
+                   LAST_NAME=Levy
+                   echo "$LAST_NAME"
+           - name: printing phone number 
+             env:
+               PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+             run: echo "$PHONE_NUMBER"
+
+
+
+
+
+
+
+
+
+             
+                   
